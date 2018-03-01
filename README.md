@@ -18,6 +18,10 @@ Applicants may use whatever techniques and Javascript/CSS frameworks they want t
 
 If you choose to use build tools to compile your CSS and Javascript (such as SASS of Coffescript) please include the original files as well. You may update this README file outlining the details of what tools you have used.
 
+### Tools Used
+
+The SCSS file watcher on the WebStore IDE was used to compile the SCSS to css.
+
 ## Fonts
 
 The fonts used in the designs are Circular see here - https://www.dropbox.com/s/h7m975lvy8bz5gn/Circular%20Fonts.zip?dl=0
