@@ -3,14 +3,17 @@
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility; }
 
 @font-face {
   font-family: "Circular-Std-Bold";
-  src: url(../fonts/Circular-Std-Bold.otf); }
+  src: url(../fonts/Circular-Std-Bold.otf), url(../fonts/Circular-Std-Bold.woff); }
 @font-face {
   font-family: "Circular-Std-Book";
-  src: url(../fonts/Circular-Std-Book.otf); }
+  src: url(../fonts/Circular-Std-Book.otf), url(../fonts/Circular-Std-Book.woff); }
 html, body {
   background: #fbfbfb;
   color: #bcc0c7;
@@ -18,8 +21,7 @@ html, body {
   font-size: 16px;
   line-height: 1;
   margin: 0;
-  padding: 0;
-  height: 100%; }
+  padding: 0; }
 
 * {
   box-sizing: border-box; }
@@ -58,22 +60,57 @@ a {
     .flex-container {
       display: block; } }
 
+.flex-container-mobile {
+  display: flex;
+  display: -webkit-flex; }
+
 img {
   max-width: 100%; }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  border-radius: 6px;
+  height: 4px;
+  background: #e4f5fe; }
+
+input[type="range"]:focus {
+  outline-offset: 0;
+  outline: none; }
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background-color: #008ff7;
+  border: none;
+  border-radius: 50%;
+  height: 13px;
+  width: 13px; }
+
+input[type="range"]::-moz-range-progress {
+  background-color: #008ff7; }
+
+input[type="range"]::-moz-range-track {
+  background-color: #e4f5fe; }
 
 .container-fluid > .row {
   align-items: stretch;
   height: 100vh; }
 
-.btn-info {
-  background: #008ff7;
-  color: #fff;
+.btn-info, .btn-default {
   font-size: 0.875em;
   border: none;
   padding: 0.7em 1.5em;
   margin: 2em 0 0 0; }
 
-.btn-info.focus, .btn-info:focus, .btn-info:hover, .btn-info.active, .btn-info:active:hover, .btn-info:active {
+.btn-info {
+  background: #008ff7; }
+
+.btn-default {
+  background: #fff;
+  border: 1px solid #f1f1f1; }
+
+.btn-info.focus, .btn-info:focus, .btn-info:hover, .btn-info.active, .btn-info:active:hover, .btn-info:active,
+.btn-default.focus, .btn-default:focus, .btn-default:hover, .btn-default.active, .btn-default:active:hover, .btn-default:active {
   background: #008ff7;
   color: #fff;
   border: none;
@@ -90,7 +127,7 @@ img {
   flex: 2;
   height: 100vh; }
   .sidebar .upper-div {
-    padding: 1.5em; }
+    padding: 1.5em 1.3em; }
   .sidebar h3 {
     font-size: 0.9em;
     letter-spacing: 3px;
@@ -101,7 +138,12 @@ img {
       height: auto; } }
   .sidebar .top {
     justify-content: space-between;
-    margin: 0 0 1.5em 0; }
+    margin: 0 0 2em 0; }
+    .sidebar .top > * {
+      align-self: center; }
+    .sidebar .top .logo {
+      width: 35px;
+      height: auto; }
   .sidebar .profile-link {
     color: #363c44;
     font-family: 'Circular-Std-Book', sans-serif; }
@@ -139,12 +181,12 @@ img {
     display: flex;
     align-items: center; }
   .sidebar ul.project-list li a p.project-title, .sidebar ul.bottom-nav li a p.nav-title {
-    font-size: 1em;
+    font-size: 0.85em;
     color: #363c44;
     margin: 0 0 0.2em 0; }
   .sidebar ul.project-list li a p, .sidebar ul.bottom-nav li a p {
     font-family: 'Circular-Std-Book', sans-serif;
-    font-size: 0.875em;
+    font-size: 0.8em;
     color: #bcc0c7;
     text-align: left; }
   .sidebar ul.project-list li:hover {
@@ -154,6 +196,15 @@ img {
   .sidebar ul.bottom-nav li a i {
     margin: 0 0.5em 0 0;
     font-size: 1.3em; }
+  .sidebar .project {
+    align-content: center; }
+    .sidebar .project > * {
+      align-self: center; }
+    .sidebar .project img {
+      width: 40px;
+      height: 40px;
+      margin: 0 0.4em 0 0;
+      border-radius: 5px; }
 
 .content-area {
   padding: 1.5em;
@@ -162,6 +213,8 @@ img {
   overflow: auto; }
   .content-area h1 {
     font-size: 1.3em; }
+    .content-area h1 i {
+      margin: 0 0.8em 0 0; }
   .content-area .top {
     border-bottom: 1px solid #f1f1f1;
     padding: 1em;
@@ -314,14 +367,20 @@ img {
   position: relative;
   overflow: hidden;
   text-align: center;
-  margin: 2em 0; }
+  margin: 2em 0;
+  z-index: 2; }
+  .new-msgs-tag span {
+    background: #fff;
+    padding: 0.5em 1em;
+    position: relative;
+    z-index: 5; }
   .new-msgs-tag:before, .new-msgs-tag:after {
     content: '';
-    display: block;
-    width: 115px;
+    width: 60%;
+    margin: 0 auto;
     position: absolute;
     top: 0.735em;
-    border-top: 1px solid red; }
+    border-top: 1px solid #ef4132; }
   .new-msgs-tag:before {
     right: 20%; }
   .new-msgs-tag:after {
@@ -395,6 +454,118 @@ img {
   .milestones .incomplete .meta-details {
     color: #363c44; }
 
+.teammates {
+  border-top: 1px solid #f1f1f1;
+  padding: 1em;
+  background-color: #fbfbfb; }
+  .teammates h5 {
+    font-size: 0.85em; }
+  .teammates ul.team-list {
+    margin: 0.3em 0 0 0; }
+  .teammates ul.team-list li {
+    width: 30px;
+    height: 30px;
+    margin: 0.3em 0.3em 0 0;
+    border-radius: 8px; }
+  .teammates ul.team-list li img {
+    border-radius: 8px; }
+
+.bundling .sm-tp-not {
+  font-size: 0.9em;
+  text-align: center;
+  vertical-align: middle; }
+  .bundling .sm-tp-not i {
+    font-size: 1.3em; }
+.bundling .devs {
+  margin: 1em;
+  align-content: center; }
+  .bundling .devs > * {
+    padding: 1em; }
+.bundling .dev-details, .bundling .dev-tasks, .bundling .dev-notify {
+  align-self: center; }
+.bundling .dev-details {
+  flex: 1;
+  -webkit-flex: 1;
+  text-align: center; }
+  .bundling .dev-details .dev-det {
+    width: 100%;
+    height: 0;
+    padding: 50% 0;
+    border-radius: 50%;
+    background: #e4f5fe;
+    top: 50%;
+    color: #797979;
+    margin: 0 0 0.5em 0; }
+    .bundling .dev-details .dev-det p {
+      transform: translate(0, -100%); }
+    .bundling .dev-details .dev-det .task {
+      font-size: 0.85em;
+      font-weight: bold; }
+    .bundling .dev-details .dev-det .level {
+      font-size: 0.75em; }
+.bundling .dev-tasks {
+  flex: 2;
+  -webkit-flex: 2; }
+.bundling .dev-notify {
+  flex: 1;
+  -webkit-flex: 1;
+  font-size: 0.8em; }
+
+.dev-tasks .tasks, .side-tasks {
+  flex-wrap: wrap;
+  align-items: stretch; }
+  .dev-tasks .tasks .label-task, .side-tasks .label-task {
+    background-color: #e4f5fe;
+    color: #008ff7;
+    padding: 0.5em 0.8em;
+    margin: 0 0.4em 0.6em 0;
+    font-size: 0.75em;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10px;
+    position: relative; }
+    .dev-tasks .tasks .label-task i, .side-tasks .label-task i {
+      position: absolute;
+      right: 6px; }
+    .dev-tasks .tasks .label-task:nth-child(3n+1), .side-tasks .label-task:nth-child(3n+1) {
+      width: calc(30% - 0.4em); }
+    .dev-tasks .tasks .label-task:nth-child(3n+2), .side-tasks .label-task:nth-child(3n+2) {
+      width: calc(40% - 0.4em); }
+    .dev-tasks .tasks .label-task:nth-child(3n+3), .side-tasks .label-task:nth-child(3n+3) {
+      width: calc(30% - 0.4em); }
+
+.side-tasks {
+  font-size: 0.85em;
+  margin: 3em 0; }
+
+.btn-grp {
+  align-content: space-between;
+  padding: 0.2em; }
+  .btn-grp > .btn {
+    width: calc(50% - 0.2em);
+    flex-grow: 1;
+    font-size: 0.7em;
+    margin: 0.2em; }
+    .btn-grp > .btn:hover {
+      border: 1px solid transparent; }
+    .btn-grp > .btn:first-child {
+      border: 1px solid transparent;
+      flex: auto;
+      margin-left: -0.2em; }
+
+.range-slider {
+  margin: 0 0 3em 0; }
+  .range-slider p.title, .range-slider .p-range {
+    font-size: 0.8em;
+    color: #797979;
+    font-family: 'Circular-Std-Book', sans-serif; }
+  .range-slider .p-range {
+    margin: 1em 0;
+    justify-content: space-between;
+    font-weight: bold; }
+
 .check-container {
   display: block;
   position: relative;
@@ -422,22 +593,6 @@ img {
   background-color: #fff;
   border: 1px solid #f1f1f1;
   border-radius: 4px; }
-
-.teammates {
-  border-top: 1px solid #f1f1f1;
-  padding: 1em;
-  background-color: #fbfbfb; }
-  .teammates h5 {
-    font-size: 0.85em; }
-  .teammates ul.team-list {
-    margin: 0.3em 0 0 0; }
-  .teammates ul.team-list li {
-    width: 30px;
-    height: 30px;
-    margin: 0.3em 0.3em 0 0;
-    border-radius: 8px; }
-  .teammates ul.team-list li img {
-    border-radius: 8px; }
 
 /* On mouse-over, add a grey background color */
 .check-container:hover input ~ .checkmark {

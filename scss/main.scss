@@ -8,6 +8,7 @@ $background-color: #fbfbfb;
 $red: #ef4132;
 $green: #09c875;
 $white: #fff;
+$light-blue: #e4f5fe;
 
 .p20 {
   padding: 20px;
@@ -47,16 +48,21 @@ $white: #fff;
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td {
   margin:0;
   padding:0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 @font-face {
   font-family:"Circular-Std-Bold";
-  src: url(../fonts/Circular-Std-Bold.otf);
+  src: url(../fonts/Circular-Std-Bold.otf),
+  url(../fonts/Circular-Std-Bold.woff);
 }
 
 @font-face {
   font-family:"Circular-Std-Book";
-  src: url(../fonts/Circular-Std-Book.otf);
+  src: url(../fonts/Circular-Std-Book.otf),
+  url(../fonts/Circular-Std-Book.woff);
 }
 
 html,body {
@@ -67,7 +73,6 @@ html,body {
   line-height: 1;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 * {
@@ -118,8 +123,42 @@ a {
   }
 }
 
+.flex-container-mobile {
+  display: flex;
+  display: -webkit-flex;
+}
+
 img {
   max-width: 100%;
+}
+
+input[type="range"]{
+  -webkit-appearance: none;
+  -moz-apperance: none;
+  border-radius: 6px;
+  height: 4px;
+  background: $light-blue;
+  //overflow: hidden;
+}
+input[type="range"]:focus {
+  outline-offset: 0;
+  outline: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background-color: $primaryColor;
+  border: none;
+  border-radius: 50%;
+  height: 13px;
+  width: 13px;
+}
+
+input[type="range"]::-moz-range-progress {
+  background-color: $primaryColor;
+}
+input[type="range"]::-moz-range-track {
+  background-color: $light-blue;
 }
 
 .container-fluid > .row {
@@ -127,15 +166,21 @@ img {
   height: 100vh;
 }
 
-.btn-info {
-  background: $primaryColor;
-  color: $white;
+.btn-info, .btn-default {
   font-size: 0.875em;
   border: none;
   padding: 0.7em 1.5em;
   margin: 2em 0 0 0;
 }
-.btn-info.focus, .btn-info:focus, .btn-info:hover, .btn-info.active, .btn-info:active:hover, .btn-info:active {
+.btn-info {
+  background: $primaryColor;
+}
+.btn-default {
+  background: $white;
+  border: 1px solid $border-grey;
+}
+.btn-info.focus, .btn-info:focus, .btn-info:hover, .btn-info.active, .btn-info:active:hover, .btn-info:active,
+.btn-default.focus, .btn-default:focus, .btn-default:hover, .btn-default.active, .btn-default:active:hover, .btn-default:active {
   background: $primaryColor;
   color: $white;
   border: none;
@@ -155,7 +200,7 @@ img {
   height: 100vh;
 
   .upper-div {
-    padding: 1.5em;
+    padding: 1.5em 1.3em;
   }
 
   h3 {
@@ -169,8 +214,15 @@ img {
     height: auto;
   }
   .top {
+    > * {
+      align-self: center;
+    }
+    .logo {
+      width: 35px;
+      height: auto;
+    }
     justify-content: space-between;
-    margin: 0 0 1.5em 0;
+    margin: 0 0 2em 0;
   }
   .profile-link {
     color: $dark-grey;
@@ -218,13 +270,13 @@ img {
     align-items: center;
   }
   ul.project-list li a p.project-title, ul.bottom-nav li a p.nav-title {
-    font-size: 1em;
+    font-size: 0.85em;
     color: $dark-grey;
     margin: 0 0 0.2em 0;
   }
   ul.project-list li a p, ul.bottom-nav li a p {
     font-family: 'Circular-Std-Book', sans-serif;
-    font-size: 0.875em;
+    font-size: 0.8em;
     color: $light-grey;
     text-align: left;
   }
@@ -238,8 +290,20 @@ img {
     margin: 0 0.5em 0 0;
     font-size: 1.3em;
   }
-}
 
+  .project {
+    > * {
+      align-self: center;
+    }
+    align-content: center;
+    img {
+      width: 40px;
+      height: 40px;
+      margin: 0 0.4em 0 0;
+      border-radius: 5px;
+    }
+  }
+}
 
 .content-area {
   padding: 1.5em;
@@ -248,6 +312,9 @@ img {
   overflow: auto;
   h1 {
     font-size: 1.3em;
+    i {
+      margin: 0 0.8em 0 0;
+    }
   }
   .top {
     border-bottom: 1px solid $border-grey;
@@ -411,13 +478,21 @@ img {
   overflow: hidden;
   text-align: center;
   margin: 2em 0;
+  z-index: 2;
+
+  span {
+    background: $white;
+    padding: 0.5em 1em;
+    position: relative;
+    z-index: 5;
+  }
   &:before, &:after {
     content: '';
-    display: block;
-    width: 115px;
+    width: 60%;
+    margin: 0 auto;
     position: absolute;
     top: 0.735em;
-    border-top: 1px solid red;
+    border-top: 1px solid $red;
   }
 
   &:before {
@@ -520,6 +595,155 @@ img {
   }
 }
 
+.teammates {
+  border-top: 1px solid $border-grey;
+  padding: 1em;
+  background-color: $background-color;
+  h5 {
+    font-size: 0.85em;
+  }
+  ul.team-list {
+    margin: 0.3em 0 0 0;
+  }
+  ul.team-list li {
+    width: 30px;
+    height: 30px;
+    margin: 0.3em 0.3em 0 0;
+    border-radius: 8px;
+  }
+  ul.team-list li img {
+    border-radius: 8px;
+  }
+}
+
+.bundling {
+  .sm-tp-not {
+    font-size: 0.9em;
+    text-align: center;
+    vertical-align: middle;
+    i {
+      font-size: 1.3em;
+    }
+  }
+  .devs {
+    margin: 1em;
+    align-content: center;
+    > * {
+      padding: 1em;
+    }
+  }
+
+  .dev-details, .dev-tasks, .dev-notify {
+    align-self: center;
+  }
+
+  .dev-details {
+    flex: 1;
+    -webkit-flex: 1;
+    text-align: center;
+    .dev-det {
+      width: 100%;
+      height: 0;
+      padding: 50% 0;
+      border-radius: 50%;
+      background: $light-blue;
+      top:50%;
+      color: $grey;
+      margin: 0 0 0.5em 0;
+      p {
+        transform: translate(0, -100%);
+      }
+      .task {
+        font-size: 0.85em;
+        font-weight: bold;
+      }
+      .level {
+        font-size: 0.75em;
+      }
+    }
+  }
+  .dev-tasks {
+    flex: 2;
+    -webkit-flex: 2;
+  }
+  .dev-notify {
+    flex: 1;
+    -webkit-flex: 1;
+    font-size: 0.8em;
+  }
+}
+
+.dev-tasks .tasks, .side-tasks {
+  flex-wrap: wrap;
+  align-items: stretch;
+  .label-task {
+    background-color: $light-blue;
+    color: $primaryColor;
+    padding: 0.5em 0.8em;
+    margin: 0 0.4em 0.6em 0;
+    font-size: 0.75em;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10px;
+    position: relative;
+    i {
+      position: absolute;
+      right: 6px;
+    }
+
+    &:nth-child(3n+1) {
+      width: calc(30% - 0.4em);
+    }
+    &:nth-child(3n+2) {
+      width: calc(40% - 0.4em);
+    }
+    &:nth-child(3n+3) {
+      width: calc(30% - 0.4em);
+    }
+  }
+}
+
+.side-tasks {
+  font-size: 0.85em;
+  margin: 3em 0;
+}
+
+.btn-grp {
+  align-content: space-between;
+  padding: 0.2em;
+  > .btn {
+    width: calc(50% - 0.2em);
+    flex-grow: 1;
+    font-size: 0.7em;
+    margin: 0.2em;
+    &:hover {
+      border: 1px solid transparent;
+    }
+    &:first-child {
+      border: 1px solid transparent;
+      flex: auto;
+      margin-left: -0.2em;
+    }
+  }
+
+}
+
+.range-slider {
+  margin: 0 0 3em 0;
+  p.title, .p-range {
+    font-size: 0.8em;
+    color: $grey;
+    font-family: 'Circular-Std-Book', sans-serif;
+  }
+  .p-range {
+    margin: 1em 0;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+}
+
 .check-container {
   display: block;
   position: relative;
@@ -551,62 +775,41 @@ img {
   border-radius: 4px;
 }
 
-.teammates {
-  border-top: 1px solid $border-grey;
-  padding: 1em;
-  background-color: $background-color;
-  h5 {
-    font-size: 0.85em;
-  }
-  ul.team-list {
-    margin: 0.3em 0 0 0;
-  }
-  ul.team-list li {
-    width: 30px;
-    height: 30px;
-    margin: 0.3em 0.3em 0 0;
-    border-radius: 8px;
-  }
-  ul.team-list li img {
-    border-radius: 8px;
-  }
+/* On mouse-over, add a grey background color */
+.check-container:hover input ~ .checkmark {
+  background-color: $grey;
 }
 
-  /* On mouse-over, add a grey background color */
-  .check-container:hover input ~ .checkmark {
-    background-color: $grey;
-  }
+/* When the checkbox is checked, add a blue background */
+.check-container input:checked ~ .checkmark {
+  background-color: $primaryColor;
+}
 
-  /* When the checkbox is checked, add a blue background */
-  .check-container input:checked ~ .checkmark {
-    background-color: $primaryColor;
-  }
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
 
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
+/* Show the checkmark when checked */
+.check-container input:checked ~ .checkmark:after {
+  display: block;
+}
 
-  /* Show the checkmark when checked */
-  .check-container input:checked ~ .checkmark:after {
-    display: block;
-  }
+/* Style the checkmark/indicator */
+.check-container .checkmark:after {
+  left: 4px;
+  top: 2px;
+  width: 5px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
 
-  /* Style the checkmark/indicator */
-  .check-container .checkmark:after {
-    left: 4px;
-    top: 2px;
-    width: 5px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-
-  label {
-    font-weight: 100;
-  }
+label {
+  font-weight: 100;
+}
